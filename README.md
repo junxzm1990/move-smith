@@ -1,6 +1,6 @@
 # MoveSmith [TO-BE-UPDATED]
 
-A Move source code level fuzzer.
+A Move source code level fuzzer. Forked from https://github.com/aptos-labs/move-smith
 
 # Usage
 
