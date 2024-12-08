@@ -21,6 +21,9 @@ use move_smith::{
 };
 use once_cell::sync::Lazy;
 use std::{env, fs::OpenOptions, fs::File, io::Write, path::PathBuf, sync::Mutex, time::Instant};
+use std::io::{self};
+use std::os::unix::io::AsRawFd;
+
 
 static CONFIG: Lazy<Config> = Lazy::new(|| {
     let config_path =
@@ -28,6 +31,14 @@ static CONFIG: Lazy<Config> = Lazy::new(|| {
     let config_path = PathBuf::from(config_path);
     Config::from_toml_file_or_default(&config_path)
 });
+
+fn suppress_output() {
+    let dev_null = OpenOptions::new().write(true).open("/dev/null").unwrap();
+    let dev_null_fd = dev_null.as_raw_fd();
+    unsafe {
+        libc::dup2(dev_null_fd, libc::STDERR_FILENO);
+    }
+}
 
 fuzz_target!(|data: &[u8]| {
 
@@ -43,7 +54,8 @@ fuzz_target!(|data: &[u8]| {
 
     simple_compile(&code);
 */
-    
+    suppress_output(); 
+   
     let (_, _, code) = raw2move(&CONFIG.generation, data);
 
     simple_compile(&code);
