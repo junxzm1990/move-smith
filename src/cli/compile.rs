@@ -10,6 +10,11 @@ use crate::{
 };
 use std::{fs, time::Instant};
 
+pub fn simple_compile(code: &str) {
+        let comp_log = compile_move_code_with_setting(&code, true);
+        println!("{}", comp_log);
+}
+
 pub fn handle_compile(_env: &MoveSmithEnv, cmd: &Compile) {
     let code = fs::read_to_string(&cmd.file).unwrap();
     println!("Loaded code from file: {:?}", cmd.file);

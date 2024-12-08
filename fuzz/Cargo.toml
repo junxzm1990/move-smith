@@ -24,6 +24,14 @@ doc = false
 bench = false
 
 [[bin]]
+name = "smart_gen"
+path = "fuzz_targets/smart_gen.rs"
+test = false
+doc = false
+bench = false
+
+
+[[bin]]
 name = "afl-transactional"
 path = "fuzz_targets/afl_transactional.rs"
 test = false
