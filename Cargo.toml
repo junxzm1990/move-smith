@@ -70,20 +70,8 @@ tokio = "1.39.2"
 toml = "0.8.19"
 serde_json = "1.0.127"
 
-[workspace]
-members = ["fuzz"]
-
-[lib]
-name = "move_smith"
-path = "src/lib.rs"
-required-features = ["git_deps"]
-
 [[bin]]
 name = "move-smith"
 path = "src/cli/main.rs"
 required-features = ["git_deps"]
 
-[[bin]]
-name = "move-smith-local"
-path = "src/cli/main.rs"
-required-features = ["local_deps"]
