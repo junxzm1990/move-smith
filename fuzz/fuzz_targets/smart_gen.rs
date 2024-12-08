@@ -8,6 +8,7 @@ use libfuzzer_sys::fuzz_target;
 use move_smith::{
     cli::{
         compile::simple_compile,
+	raw2move::raw2move,
     },
     config::Config,
     execution::{
@@ -29,6 +30,8 @@ static CONFIG: Lazy<Config> = Lazy::new(|| {
 });
 
 fuzz_target!(|data: &[u8]| {
+
+/*
     let u = &mut Unstructured::new(data);
     let mut smith = MoveSmith::new(&CONFIG.generation);
     
@@ -39,5 +42,11 @@ fuzz_target!(|data: &[u8]| {
     let code = smith.get_compile_unit().emit_code();
 
     simple_compile(&code);
+*/
+    
+    let (_, _, code) = raw2move(&CONFIG.generation, data);
+
+    simple_compile(&code);
+
 });
 
